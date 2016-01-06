@@ -5,12 +5,22 @@
 		// redirect to / when there is no state that matches with the provided url
 		$urlRouterProvider.otherwise('/');
 
-		$stateProvider.state('main', {
+		$stateProvider.state('layout', {
 			url: '/',
 			views: {
 				'@':{
 					templateUrl: 'views/layout/main.html',
 					controller: 'MainController' 
+				}
+			}
+		});
+
+		$stateProvider.state('layout.login', {
+			url: 'login',
+			views: {
+				'main@layout': {
+					templateUrl: 'views/site/login.html',
+					controller: 'LoginController'
 				}
 			}
 		});
