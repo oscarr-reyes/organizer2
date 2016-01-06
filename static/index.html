@@ -1,15 +1,23 @@
 <!doctype html>
-<html>
+<html ng-app="organizer">
 <head>
-	<meta charset="utf-8">
+	<meta charset="utf-8" name="viewport" content="initial-scale=1">
 	<title>Organizer 2</title>
+
+	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
 </head>
-<body ng-app="organizer">
-	Hello world
+<body layout="column" layout-fill ng-controller="MainController" ui-view>
 
 	<!-- Javascript Libraries -->
 	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-material/angular-material.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-aria/angular-aria.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
 	<script src="dist/js/app.js"></script>
+
+	<!-- Angular controllers -->
+	<script src="dist/js/controllers/MainController.js"></script>
 </body>
 </html>
