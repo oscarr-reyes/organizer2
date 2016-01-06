@@ -1,0 +1,29 @@
+{
+  "name": "organizer2",
+  "description": "An improved version of organizer 1",
+  "main": "index.js",
+  "authors": [
+    "Oscar Reyes <darkfreak17@hotmail.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "nodejs",
+    "proyect",
+    "manager",
+    "restful"
+  ],
+  "homepage": "https://github.com/Nosthertus/organizer2",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "~0.2.15",
+    "angular-material": "~1.0.1"
+  }
+}
