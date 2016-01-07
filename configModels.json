@@ -1,0 +1,7 @@
+{
+	"dialect": "mysql",
+	"additional": {
+		"freezeTableName": true,
+		"timestamps": false
+	}
+}
