@@ -1,0 +1,36 @@
+<form ng-submit="submit('new')">
+	<md-content layout="column">
+		<md-input-container>
+			<label>Name</label>
+			<input ng-model="form.name">
+		</md-input-container>
+
+		<md-content layout="row">
+			<md-input-container flex class="md-block">
+				<label>Type</label>
+				<md-select ng-model="form.projecttype_id">
+					<md-option value="test">
+						test
+					</md-option>
+				</md-select>
+			</md-input-container>
+			<md-input-container flex class="md-block">
+				<label>Status</label>
+				<md-select ng-model="form.status">
+					<md-option ng-repeat="(key, val) in $parent.codeStatus" value="{{key}}">
+						{{val}}
+					</md-option>
+				</md-select>
+			</md-input-container>
+		</md-content>
+
+		<md-input-container>
+			<label>Description</label>
+			<textarea ng-model="form.description"></textarea>
+		</md-input-container>
+
+		<md-content>
+			<md-button type="submit" class="md-primary md-raised">Create</md-button>
+		</md-content>
+	</md-content>
+</form>

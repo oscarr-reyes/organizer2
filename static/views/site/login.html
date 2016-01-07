@@ -1,5 +1,5 @@
 <md-content layout-fill>
-	<md-tabs md-dynamic-height class="md-whiteframe-10dp" id="signing" layout-padding>
+	<md-tabs md-dynamic-height class="md-whiteframe-10dp" id="signing" layout-padding md-stretch-tabs="always">
 		<md-tab label="Login" flex>
 			<form ng-submit="submit('login')">
 				<md-content layout="column">
@@ -23,6 +23,10 @@
 					<md-input-container>
 						<label>Username</label>
 						<input ng-model="user.name">
+					</md-input-container>
+					<md-input-container>
+						<label>Email</label>
+						<input ng-model="user.email" type="email">
 					</md-input-container>
 					<md-input-container>
 						<label>Password</label>
