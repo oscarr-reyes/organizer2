@@ -1,5 +1,12 @@
-<md-list layout-padding>
-	<md-list-item ng-show="!projects.length" class="md-whiteframe-4dp">
+<md-list layout-padding class="md-whiteframe-4dp">
+	<md-list-item ng-show="data.projects.length" ng-repeat="project in data.projects" class="md-2-line">
+		<div class="md-list-item-text">
+			<h1>{{project.name}}</h1>
+			<p>{{project.description}}</p>
+		</div>
+	</md-list-item>
+
+	<md-list-item ng-show="!data.projects.length" class="md-whiteframe-4dp">
 		<span>There are no projects found.</span>
 	</md-list-item>
 </md-list>

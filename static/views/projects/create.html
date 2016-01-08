@@ -2,21 +2,21 @@
 	<md-content layout="column">
 		<md-input-container>
 			<label>Name</label>
-			<input ng-model="form.name">
+			<input ng-model="form.name" required>
 		</md-input-container>
 
 		<md-content layout="row">
 			<md-input-container flex class="md-block">
 				<label>Type</label>
-				<md-select ng-model="form.projecttype_id">
-					<md-option value="test">
-						test
+				<md-select ng-model="form.projecttype_id" md-on-open="loadTypes()" required>
+					<md-option ng-repeat="type in types" value="{{type.id}}">
+						{{type.name}}
 					</md-option>
 				</md-select>
 			</md-input-container>
 			<md-input-container flex class="md-block">
 				<label>Status</label>
-				<md-select ng-model="form.status">
+				<md-select ng-model="form.status" require>
 					<md-option ng-repeat="(key, val) in $parent.codeStatus" value="{{key}}">
 						{{val}}
 					</md-option>

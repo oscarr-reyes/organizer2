@@ -1,24 +1,67 @@
 (function(angular){
 	var app = angular.module('organizer');
 
-	app.controller('ProjectsController', ['$scope', function($scope){
-		$scope.projects = [];
+	app.controller('ProjectsController', ['$scope', '$resource', '$window', '$state', function($scope, $resource, $window, $state){
+		var restUrl  = 'http://' + $window.location.hostname + ':3000/projects';
+		var projects = $resource(restUrl + '/:path ', {}, {
+			types: {
+				method: 'GET',
+				params: {path: 'type'},
+				isArray: true
+			}
+		});
+
+		$scope.data = {
+			loading: false,
+			projects: []
+		};
+
+		$scope.types    = [];
 		$scope.sideMenu = {
 			open: false
 		};
 
-		$scope.dial = {
-			open: false
-		};
+		$scope.loadTypes = function(){
+			projects.types().$promise.then(function(data){
+				$scope.types = data;
+			});
+		}
 
 		$scope.submit = function(status){
 			if(status == 'new'){
-				console.log($scope.form);
+				var project = new projects($scope.form);
+
+				project.$save(function(data){
+					if(data.success){
+						$state.go('layout.projects');
+						console.log(data);
+					}
+
+					else{
+						$scope.$parent.alert('Projects', 'There was an error saving the project');
+						console.log(data.errors);
+					}
+				});
 			}
 		};
 
 		$scope.$on('main.leftMenu', function(event){
 			$scope.sideMenu.open = !$scope.sideMenu.open;
 		});
+
+		$scope.$on('$stateChangeSuccess', function(event, state){
+			if(!$scope.data.loading && state.name == 'layout.projects'){
+				$scope.data.loading = true;
+				getProjects();
+			}
+		});
+
+		function getProjects(){
+			projects.query(function(data){
+				console.log(data);
+				$scope.data.projects = data;
+				$scope.data.loading = false;
+			});
+		}
 	}]);
 })(angular);
