@@ -57,7 +57,6 @@
 			views: {
 				'@':{
 					templateUrl: 'views/layout/main.html',
-					controller: 'MainController' 
 				}
 			}
 		});
@@ -92,6 +91,16 @@
 				'projects@layout.projects': {
 					templateUrl: 'views/projects/create.html',
 					controller: 'ProjectsController'
+				}
+			}
+		});
+
+		$stateProvider.state('layout.projects.tasks', {
+			url: '/:projectId',
+			views: {
+				'main@layout': {
+					templateUrl: 'views/tasks/index.html',
+					controller: 'TasksController'
 				}
 			}
 		});

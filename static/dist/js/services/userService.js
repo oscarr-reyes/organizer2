@@ -39,7 +39,7 @@
 		 * @return {String} The name of the user
 		 */
 		self.getName = function(){
-			return self._data.username;
+			return self._data.name;
 		};
 
 		/**
@@ -101,6 +101,22 @@
 
 				callback(result.success, result.error);
 			});
+		};
+
+		self.logout = function(){
+			if(self.isGuest)
+				return false;
+
+			else{
+				for(prop in self._data)
+					self._data[prop] = null;
+
+				self.isGuest = true;
+
+				$rootScope.$broadcast('user.unlogged');
+
+				return true;
+			}
 		};
 	}]);
 })(angular);

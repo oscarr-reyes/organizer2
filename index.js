@@ -23,7 +23,8 @@ app.header(function($){
 var files = static({
 	path: app.path + '/static',
 	index: false,
-	showScriptName: false
+	showScriptName: false,
+	cache: 'no-store'
 });
 
 app.footer(files, function($){

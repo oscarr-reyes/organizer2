@@ -1,8 +1,32 @@
 <md-toolbar>
 	<div class="md-toolbar-tools">
-		<md-button aria-label="menu projects" class="md-icon-button" ng-click="leftMenu()">
+		<md-button aria-label="menu projects" class="md-icon-button" ng-click="leftMenu()" ng-if="sideMenu.content.length">
 			<md-icon md-svg-icon="menu"></md-icon>
 		</md-button>
+		<span flex></span>
+
+		<md-menu md-position-mode="target-right target" ng-if="!user.data.guest">
+			<md-button aria-label="User Options" ng-click="user.toggleMenu($mdOpenMenu, $event)">{{user.data.name}}</md-button>
+			
+			<md-menu-content>
+				<md-menu-item><md-button ng-click="user.menu('logout')">Logout</md-button></md-menu-item>
+			</md-menu-content>
+		</md-menu>
 	</div>
 </md-toolbar>
-<md-content flex ui-view="main"></md-content>
+<md-content flex layout="row">
+	<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="sideMenu.open">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h3><span>{{sideMenu.title}}</span></h3>
+			</div>
+		</md-toolbar>
+
+		<md-content layout-padding>
+			<md-button ng-repeat="btn in sideMenu.content" ui-sref-active-eq="md-raised" ui-sref="{{btn.sref}}">
+				{{btn.name}}
+			</md-button>
+		</md-content>
+	</md-sidenav>
+	<md-content flex ui-view="main"></md-content>
+</md-content>

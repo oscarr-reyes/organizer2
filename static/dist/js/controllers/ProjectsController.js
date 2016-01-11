@@ -16,9 +16,19 @@
 			projects: []
 		};
 
-		$scope.types    = [];
-		$scope.sideMenu = {
-			open: false
+		$scope.types = [];
+
+		$scope.menu = {
+			title: 'Projects',
+			content: [
+				{
+					name: 'index',
+					sref: 'layout.projects'
+				}, {
+					name: 'create',
+					sref: 'layout.projects.create'
+				}
+			]
 		};
 
 		$scope.loadTypes = function(){
@@ -52,13 +62,13 @@
 		$scope.$on('$stateChangeSuccess', function(event, state){
 			if(!$scope.data.loading && state.name == 'layout.projects'){
 				$scope.data.loading = true;
+				$scope.$parent.populateMenu($scope.menu);
 				getProjects();
 			}
 		});
 
 		function getProjects(){
 			projects.query(function(data){
-				console.log(data);
 				$scope.data.projects = data;
 				$scope.data.loading = false;
 			});
