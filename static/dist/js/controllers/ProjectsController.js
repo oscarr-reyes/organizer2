@@ -23,10 +23,10 @@
 			content: [
 				{
 					name: 'index',
-					sref: 'layout.projects'
+					sref: 'projects'
 				}, {
 					name: 'create',
-					sref: 'layout.projects.create'
+					sref: 'projects.create'
 				}
 			]
 		};
@@ -60,7 +60,7 @@
 		});
 
 		$scope.$on('$stateChangeSuccess', function(event, state){
-			if(!$scope.data.loading && state.name == 'layout.projects'){
+			if(!$scope.data.loading && state.name == 'projects'){
 				$scope.data.loading = true;
 				$scope.$parent.populateMenu($scope.menu);
 				getProjects();

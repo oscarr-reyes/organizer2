@@ -1,0 +1,13 @@
+<md-list layout-padding class="md-whiteframe-4dp">
+	<md-list-item ng-show="data.tasks.length" ng-repeat="task in data.tasks" class="md-3-line">
+		<div class="md-list-item-text">
+			<h1>{{task.name}}</h1>
+			<h3>{{$parent.codeStatus[task.status]}}</h3>
+			<p>{{task.description}}</p>
+		</div>
+	</md-list-item>
+
+	<md-list-item ng-show="!data.tasks.length" class="md-whiteframe-4dp">
+		<span>There are no tasks found.</span>
+	</md-list-item>
+</md-list>

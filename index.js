@@ -36,3 +36,4 @@ app.footer(files, function($){
 
 require('./routes/users')(app);
 require('./routes/projects')(app);
+require('./routes/tasks')(app);

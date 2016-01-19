@@ -64,7 +64,7 @@
 
 		$scope.$on('$locationChangeSuccess', function(event){
 			if(user.isGuest)
-				$state.go('layout.login');
+				$state.go('login');
 		});
 
 	}]);

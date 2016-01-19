@@ -1,7 +1,11 @@
 (function(angular){
-	var app = angular.module('organizer', ['ngMaterial', 'ui.router', 'ngResource']);
+	var app = angular.module('organizer', [
+		'ngMaterial',
+		'ui.router',
+		'ngResource'
+	]);
 
-	app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$mdIconProvider', function($stateProvider, $urlRouterProvider, $httpProvider, $mdIconProvider){
+	app.config(['$httpProvider', '$mdIconProvider', function($httpProvider, $mdIconProvider){
 		$mdIconProvider.defaultIconSet('dist/svg/mdi.svg');
 
 		// Use x-www-form-urlencoded Content-Type
@@ -46,63 +50,6 @@
 		// Override $http service's default transformRequest
 		$httpProvider.defaults.transformRequest = [function(data) {
 			return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
-		}];
-
-
-		// redirect to / when there is no state that matches with the provided url
-		$urlRouterProvider.otherwise('/');
-
-		$stateProvider.state('layout', {
-			url: '/',
-			views: {
-				'@':{
-					templateUrl: 'views/layout/main.html',
-				}
-			}
-		});
-
-		$stateProvider.state('layout.login', {
-			url: 'login',
-			views: {
-				'main@layout': {
-					templateUrl: 'views/site/login.html',
-					controller: 'LoginController'
-				}
-			}
-		});
-
-		$stateProvider.state('layout.projects', {
-			url: 'projects',
-			views: {
-				'main@layout': {
-					templateUrl: 'views/projects/index.html',
-					controller: 'ProjectsController'
-				},
-				'projects@layout.projects': {
-					templateUrl: 'views/projects/_view.html',
-					controller: 'ProjectsController'
-				}
-			}
-		});
-
-		$stateProvider.state('layout.projects.create', {
-			url: '/create',
-			views: {
-				'projects@layout.projects': {
-					templateUrl: 'views/projects/create.html',
-					controller: 'ProjectsController'
-				}
-			}
-		});
-
-		$stateProvider.state('layout.projects.tasks', {
-			url: '/:projectId',
-			views: {
-				'main@layout': {
-					templateUrl: 'views/tasks/index.html',
-					controller: 'TasksController'
-				}
-			}
-		});
+		}];	
 	}]);
 })(angular);

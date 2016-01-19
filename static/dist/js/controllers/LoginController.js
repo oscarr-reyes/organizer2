@@ -8,7 +8,7 @@
 			if(state == 'login'){
 				user.login($scope.user, function(success, error){
 					if(success)
-						$state.go('layout.projects');
+						$state.go('projects');
 
 					else
 						$scope.$parent.alert('Login', error);
