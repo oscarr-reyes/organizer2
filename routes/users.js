@@ -52,12 +52,22 @@ module.exports = function(app){
 	app.post('/users/login', function($){
 		var user = $.db.import(__dirname + "/../models/user.js");
 
-		var query = {
-			where: {
-				$or: [{name: $.body.name}, {email: $.body.name}],
-				$and: {password: $.body.password}
-			}
-		};
+		if($.body.token){
+			var query = {
+				where: {
+					accessToken: $.body.token
+				}
+			};
+		}
+
+		else{
+			var query = {
+				where: {
+					$or: [{name: $.body.name}, {email: $.body.name}],
+					$and: {password: $.body.password}
+				}
+			};
+		}
 
 		user.findOne(query)
 			.then(function(user){

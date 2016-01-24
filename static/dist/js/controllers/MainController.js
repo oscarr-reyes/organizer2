@@ -23,7 +23,7 @@
 			menu: function(option){
 				if(option == 'logout'){
 					if(user.logout())
-						$state.go('layout.login');
+						$state.go('login');
 				}
 			},
 			data: {
@@ -63,7 +63,7 @@
 		});
 
 		$scope.$on('$locationChangeSuccess', function(event){
-			if(user.isGuest)
+			if(user.isGuest && !user.logByToken())
 				$state.go('login');
 		});
 

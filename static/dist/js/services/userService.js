@@ -1,7 +1,7 @@
 (function(angular){
 	var app = angular.module('organizer');
 
-	app.service('userService', ['$rootScope', '$resource', '$window', function($rootScope, $resource, $window){
+	app.service('userService', ['$rootScope', '$resource', '$window', '$cookies', function($rootScope, $resource, $window, $cookies){
 		var self = this;
 		var apiHost = 'http://' + $window.location.hostname + ':3000';
 
@@ -11,7 +11,8 @@
 		self._data = {
 			id: null,
 			name: null,
-			email: null
+			email: null,
+			accessToken: null
 		};
 
 		/**
@@ -90,6 +91,9 @@
 				if(typeof data.id !== "undefined"){
 					self._populate(data.toJSON());
 
+					if(credentials.remember)
+						self.storeAccessToken();
+
 					self.isGuest = false;
 					result.success = true;
 
@@ -103,6 +107,10 @@
 			});
 		};
 
+		/**
+		 * Logout the user, delete user's data in cache
+		 * @return {boolean} Whenever if user was logged out successfully
+		 */
 		self.logout = function(){
 			if(self.isGuest)
 				return false;
@@ -113,10 +121,69 @@
 
 				self.isGuest = true;
 
+				self.removeToken();
+
 				$rootScope.$broadcast('user.unlogged');
 
 				return true;
 			}
 		};
+
+		/**
+		 * Get list of all users
+		 * @return {array} The list of all users in database
+		 */
+		self.search = function(){
+			var user = $resource(apiHost + '/users/');
+
+			return user.query();
+		}
+
+		/**
+		 * Store the access token of the user for auto re-login
+		 * @return {void}
+		 */
+		self.storeAccessToken = function(){
+			var token = self._data.accessToken;
+			var time = new Date();
+
+			$cookies.put('accessToken', token, {
+				expires: new Date(time.getFullYear(), time.getMonth() + 1, time.getDate())
+			});
+		};
+
+		/**
+		 * Remove the token stored in cookies if exists
+		 * @return {void}
+		 */
+		self.removeToken = function(){
+			if(self.hasToken)
+				$cookies.remove('accessToken');
+		};
+
+		/**
+		 * Logs the user with a token stored in cookies
+		 * @return {void}
+		 */
+		self.logByToken = function(){
+			if(self.hasToken()){
+				self.login({token: $cookies.get('accessToken')}, function(){});
+				return true;
+			}
+
+			else
+				return false;
+		}
+
+		/**
+		 * Check if client has token to access
+		 * @return {void}
+		 */
+		self.hasToken = function(){
+			if($cookies.get('accessToken'))
+				return true;
+
+			return false;
+		}
 	}]);
 })(angular);

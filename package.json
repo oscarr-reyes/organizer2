@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Nosthertus/organizer2#readme",
   "dependencies": {
     "diet": "^0.9.28",
+    "hat": "0.0.3",
     "mysql": "^2.10.0",
     "sequelize": "^3.16.0"
   }

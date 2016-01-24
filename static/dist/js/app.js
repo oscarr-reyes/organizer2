@@ -2,7 +2,8 @@
 	var app = angular.module('organizer', [
 		'ngMaterial',
 		'ui.router',
-		'ngResource'
+		'ngResource',
+		'ngCookies'
 	]);
 
 	app.config(['$httpProvider', '$mdIconProvider', function($httpProvider, $mdIconProvider){
