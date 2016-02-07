@@ -1,1 +1,40 @@
-Create tasks
+<form ng-submit="submit('new')">
+	<md-content layout="column">
+		<md-input-container>
+			<label>Name</label>
+			<input ng-model="form.name" required>
+		</md-input-container>
+
+		<md-input-container flex class="md-block">
+			<label>Status</label>
+			<md-select ng-model="form.status" require>
+				<md-option ng-repeat="(key, val) in $parent.codeStatus" value="{{key}}">
+					{{val}}
+				</md-option>
+			</md-select>
+		</md-input-container>
+
+		<md-chips ng-model="assigned" md-autocomplete-snap md-require-match="true">
+			<md-autocomplete md-search-text="searchText" md-selected-item="selectedItem" md-items="user in searchUser(searchText)" md-item-text="user.name" placeholder="assign users">
+				<span md-highlight-text="searchText">{{user.name}}</span>
+			</md-autocomplete>
+
+			<md-chip-template>
+				<span>
+					<strong>{{$chip.name}}</strong>
+				</span>
+			</md-chip-template>
+		</md-chips>
+
+		<md-checkbox ng-model="selfAssign" aria-label="self assign" ng-change="toggleAssign()">Self Assign</md-checkbox>
+
+		<md-input-container>
+			<label>Description</label>
+			<textarea ng-model="form.description"></textarea>
+		</md-input-container>
+
+		<md-content>
+			<md-button type="submit" class="md-primary md-raised">Create</md-button>
+		</md-content>
+	</md-content>
+</form>

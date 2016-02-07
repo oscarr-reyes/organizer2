@@ -5,6 +5,23 @@
 		var self = this;
 		var apiHost = 'http://' + $window.location.hostname + ':3000';
 
+		var user = $resource(apiHost + '/users/:action/:query', {query: '@query'}, {
+			login: {
+				method: 'POST',
+				params: {
+					action: 'login'
+				}
+			},
+			search: {
+				method: 'GET',
+				isArray: true,
+				params: {
+					action: 'search',
+					query: '@query'
+				}
+			}
+		});
+
 		/**
 		 * User cache data to access globally
 		 */
@@ -57,8 +74,6 @@
 		 * @param  {Function} callback    The callback to run when tries to register
 		 */
 		self.register = function(credentials, callback){
-			var user = $resource(apiHost + '/users/');
-
 			var newUser = new user(credentials);
 
 			newUser.$save(function(data){
@@ -76,12 +91,6 @@
 		 * @param  {Function} callback    The result of the server response
 		 */
 		self.login = function(credentials, callback){
-			var user = $resource(apiHost + '/users/login', null, {
-				login: {
-					method: 'POST'
-				}
-			});
-
 			user.login(credentials).$promise.then(function(data){
 				var result = {
 					success: false,
@@ -133,10 +142,10 @@
 		 * Get list of all users
 		 * @return {array} The list of all users in database
 		 */
-		self.search = function(){
-			var user = $resource(apiHost + '/users/');
-
-			return user.query();
+		self.search = function(name){
+			return user.search({query: name}, function(result){
+				return result;
+			});
 		}
 
 		/**

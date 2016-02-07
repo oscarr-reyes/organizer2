@@ -62,9 +62,14 @@
 			$scope.user.data.guest = user.isGuest;
 		});
 
-		$scope.$on('$locationChangeSuccess', function(event){
+		$scope.$on('$stateChangeSuccess', function(event, state){
 			if(user.isGuest && !user.logByToken())
 				$state.go('login');
+
+			else{
+				if(state.name == 'layout')
+					$state.go('projects');
+			}
 		});
 
 	}]);

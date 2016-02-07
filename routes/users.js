@@ -22,16 +22,18 @@ module.exports = function(app){
 	 * @name  String  The name of the user
 	 * @return JSON   Returns the result of the search
 	 */
-	app.get('/users/:name', function($){
+	app.get('/users/search/:name', function($){
 		var user = $.db.import(__dirname + "/../models/user.js");
 		
 		var query = {
 			where: {
-				name: $.params.name
+				name: {
+					$like: '%' + $.params.name + '%'
+				}
 			}
 		};
 
-		user.findOne(query)
+		user.findAll(query)
 			.then(function(user){
 				$.data = user;
 				$.json();
