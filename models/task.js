@@ -30,6 +30,15 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true,
 			defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
 		},
+		user_id: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			primaryKey: true,
+			references: {
+				model: 'user',
+				key: 'id'
+			}
+		},
 		project_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,

@@ -61,6 +61,7 @@
 			$scope.data.loading = true;
 			$scope.$parent.populateMenu($scope.menu);
 			getTasks($state.params.projectId);
+			console.log(state);
 		});
 
 		function getTasks(projectId){

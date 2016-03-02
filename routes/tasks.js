@@ -48,6 +48,7 @@ module.exports = function(app){
 	 */
 	app.post('/tasks', function($){
 		var tasks = $.db.import(__dirname + '/../models/task.js');
+		var userTasks = $.db.import(__dirname + '/../models/task_has_user.js');
 
 		$.data = {
 			success: true,
@@ -58,6 +59,10 @@ module.exports = function(app){
 		tasks.create($.body)
 			.then(function(result){
 				$.data.data = result;
+
+				if($.body.assigned)
+					$.data.data.users = assignUsers(userTasks, result.id, $.body.assigned);
+
 				$.json();
 			})
 			.catch(function(err){
@@ -78,4 +83,27 @@ function criteria(query){
 	}
 
 	return q;
+}
+
+function assignUsers(model, taskId, users){
+	var data = {
+		success: true,
+		data: null,
+		errors: []
+	};
+
+	for(id in users){
+		var query = {
+			user_id: users[id],
+			task_id: taskId
+		};
+
+		model.create(query)
+			.catch(function(err){
+				data.success = false;
+				data.errors.push(err);
+			});
+	}
+
+	return data;
 }

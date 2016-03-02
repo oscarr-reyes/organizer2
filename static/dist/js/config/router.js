@@ -54,14 +54,13 @@
 		$stateProvider.state('tasks', {
 			url: '/:projectId',
 			parent: 'projects',
+			controller: 'TasksController',
 			views: {
 				'main@layout': {
-					templateUrl: 'views/tasks/index.html',
-					controller: 'TasksController'
+					templateUrl: 'views/tasks/index.html'
 				},
 				'tasks@tasks': {
-					templateUrl: 'views/tasks/_view.html',
-					controller: 'TasksController'
+					templateUrl: 'views/tasks/_view.html'
 				}
 			}
 		});
@@ -71,8 +70,17 @@
 			parent: 'tasks',
 			views: {
 				'tasks@tasks': {
-					templateUrl: 'views/tasks/create.html',
-					controller: 'TasksController'
+					templateUrl: 'views/tasks/create.html'
+				}
+			}
+		});
+
+		$stateProvider.state('tasks.view', {
+			url: '/tasks/:taskId',
+			parent: 'tasks',
+			views: {
+				'tasks@tasks': {
+					templateUrl: 'views/tasks/view.html'
 				}
 			}
 		});

@@ -19,10 +19,6 @@ module.exports = function(sequelize, DataTypes) {
 				model: 'task',
 				key: 'id'
 			}
-		},
-		owner: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false
 		}
 	}, {
 		tableName: 'user_has_task',

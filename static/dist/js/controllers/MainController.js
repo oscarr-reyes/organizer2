@@ -70,6 +70,10 @@
 				if(state.name == 'layout')
 					$state.go('projects');
 			}
+
+			$scope.$state = {
+				params: $state.params
+			};
 		});
 
 	}]);

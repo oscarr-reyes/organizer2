@@ -1,5 +1,5 @@
 <md-list layout-padding class="md-whiteframe-4dp">
-	<md-list-item ng-show="data.tasks.length" ng-repeat="task in data.tasks" class="md-3-line">
+	<md-list-item ng-show="data.tasks.length" ng-repeat="task in data.tasks" ui-sref="tasks.view({projectId: task.project_id, taskId: task.id})" class="md-3-line">
 		<div class="md-list-item-text">
 			<h1>{{task.name}}</h1>
 			<h3>{{$parent.codeStatus[task.status]}}</h3>
